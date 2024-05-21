@@ -13,6 +13,7 @@ import (
 	"goboilerplate/internal/goboilerplate/layout/internal"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 var appFolder = "./"
@@ -75,6 +76,10 @@ func CreateLayout(verbose bool) (err error) {
 		if err == nil {
 			err = writeProjectReadme()
 		}
+
+		fmt.Println("\n" + strings.Repeat(string("#"), 50))
+		fmt.Println("Project creation finalized!!")
+		fmt.Println(strings.Repeat(string("#"), 50) + "\n")
 	}
 
 	return err

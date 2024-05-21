@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Gabriel Nunes <gnunes21@outlook.pt>
 */
 package cmd
 
