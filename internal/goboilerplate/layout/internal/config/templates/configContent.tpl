@@ -16,21 +16,17 @@ var cfg *Config = &Config{}
 
 var onceInit sync.Once
 
-func init() {
+func initConfig() {
 	viper.SetConfigName("{{.}}")
 	viper.SetConfigType("yaml")
 
 	viper.AddConfigPath("./configs")
 	viper.AddConfigPath(".")
-}
 
-func initConfig() {
 	loadConfigFromFile(cfg)
 	loadConfigFromEnvs(cfg)
 
-	if err == nil {
-		fmt.Println("[CONFIG] Config loaded successfully.")
-	}
+	fmt.Println("[CONFIG] Config loaded successfully.")
 }
 
 func GetConfig() *Config {

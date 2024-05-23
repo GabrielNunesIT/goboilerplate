@@ -16,7 +16,12 @@ func addFlags() {
 func loadConfigFromFlag(cfg *Config) (err error) {
 	addFlags()
 
-	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
+	flag.VisitAll(func (f *flag.Flag) {
+		if f.value.String() == f.DefValue {
+			pflag.CommandLine.AddGoFlag(f)
+		}
+	})
+
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 
