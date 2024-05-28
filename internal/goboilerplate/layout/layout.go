@@ -2,6 +2,7 @@ package layout
 
 import (
 	"fmt"
+	"goboilerplate/internal/goboilerplate/layout/customlayout"
 	"goboilerplate/internal/goboilerplate/layout/defaultlayout"
 	"os"
 	"os/exec"
@@ -44,9 +45,12 @@ func CreateLayout(verbose bool) (err error) {
 
 		err = execGoModInit()
 		if err == nil {
-			_, err = os.Stat(appFolder + "/layout.yaml")
+			var file *os.File
+			file, err = os.Open(appFolder + "/layout.yaml")
 			if err != nil {
 				err = defaultlayout.CreateDefaultLayout(verbose, appName)
+			} else {
+				err = customlayout.CreateCustomLayout(verbose, appName, file)
 			}
 		}
 
