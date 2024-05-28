@@ -20,6 +20,10 @@ var loadFromEnvsContent string
 //go:embed templates/loadFromFlags.tpl
 var loadFromFlagContent string
 
+// CreateAppConfigFiles creates the configuration files for the specified app.
+// It takes the app name as a parameter and returns an error if any.
+// The function creates the necessary directory structure and generates the configuration files
+// using templates for the app's config, loadFromFile, loadFromEnv, and loadFromFlag files.
 func CreateAppConfigFiles(appName string) (err error) {
 	var fileConfig *os.File
 	var fileLoadFromFile *os.File
@@ -48,7 +52,6 @@ func CreateAppConfigFiles(appName string) (err error) {
 			if err == nil {
 				err = loadFromFileTmpl.Execute(fileLoadFromFile, appName)
 			}
-			// _, err = fileLoadFile.WriteString(loadFromFileContent)
 		}
 	}
 
@@ -60,7 +63,6 @@ func CreateAppConfigFiles(appName string) (err error) {
 			if err == nil {
 				err = loadFromEnvTmpl.Execute(fileLoadEnv, appName)
 			}
-			// _, err = fileLoadEnv.WriteString(fmt.Sprintf(loadFromEnvContent, strings.ToUpper(appName)))
 		}
 	}
 
@@ -72,7 +74,6 @@ func CreateAppConfigFiles(appName string) (err error) {
 			if err == nil {
 				err = loadFromFlagTmpl.Execute(fileLoadFlag, appName)
 			}
-			// _, err = fileLoadFlag.WriteString(loadFromFlagContent)
 		}
 	}
 

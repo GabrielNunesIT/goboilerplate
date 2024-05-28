@@ -2,15 +2,7 @@ package layout
 
 import (
 	"fmt"
-	"goboilerplate/internal/goboilerplate/layout/api"
-	"goboilerplate/internal/goboilerplate/layout/assets"
-	"goboilerplate/internal/goboilerplate/layout/bin"
-	"goboilerplate/internal/goboilerplate/layout/build"
-	"goboilerplate/internal/goboilerplate/layout/cmd"
-	"goboilerplate/internal/goboilerplate/layout/configs"
-	"goboilerplate/internal/goboilerplate/layout/docs"
-	"goboilerplate/internal/goboilerplate/layout/githooks"
-	"goboilerplate/internal/goboilerplate/layout/internal"
+	"goboilerplate/internal/goboilerplate/layout/defaultlayout"
 	"os"
 	"os/exec"
 	"strings"
@@ -19,6 +11,11 @@ import (
 var appFolder = "./"
 var appName = ""
 
+// CreateLayout creates a layout for the application.
+// It prompts the user for the app name and project folder,
+// and then initiates the project creation process.
+// If verbose is set to true, it prints additional information during the process.
+// The function returns an error if any error occurs during the creation process.
 func CreateLayout(verbose bool) (err error) {
 	fmt.Println()
 	fmt.Println("What do you want to name the app?")
@@ -47,32 +44,12 @@ func CreateLayout(verbose bool) (err error) {
 
 		err = execGoModInit()
 		if err == nil {
-			err = api.CreateApiFolder(verbose)
+			_, err = os.Stat(appFolder + "/layout.yaml")
+			if err != nil {
+				err = defaultlayout.CreateDefaultLayout(verbose, appName)
+			}
 		}
-		if err == nil {
-			err = assets.CreateAssetsFolder(verbose)
-		}
-		if err == nil {
-			err = bin.CreateBinFolder(verbose)
-		}
-		if err == nil {
-			err = build.CreateBuildFolder(verbose)
-		}
-		if err == nil {
-			err = cmd.CreateCmdFolder(verbose, appName)
-		}
-		if err == nil {
-			err = configs.CreateConfigsFolder(verbose)
-		}
-		if err == nil {
-			err = docs.CreateDocsFolder(verbose)
-		}
-		if err == nil {
-			err = githooks.CreateGithooksFolder(verbose)
-		}
-		if err == nil {
-			err = internal.CreateInternalFolder(verbose, appName)
-		}
+
 		if err == nil {
 			err = writeProjectReadme()
 		}

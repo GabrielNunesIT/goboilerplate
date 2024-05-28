@@ -1,9 +1,9 @@
-package internal
+package internalproject
 
 import (
 	"fmt"
-	"goboilerplate/internal/goboilerplate/layout/internal/config"
-	"goboilerplate/internal/goboilerplate/layout/internal/log"
+	"goboilerplate/internal/goboilerplate/layout/defaultlayout/internalproject/config"
+	"goboilerplate/internal/goboilerplate/layout/defaultlayout/internalproject/log"
 	"os"
 )
 
